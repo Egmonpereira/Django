@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Simple MOOC - Uma simples plataforma de ensino a distância" />
+    <title>Simple MOOC</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+        const alert = (messages, type) => {
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                    `   <div>${messages}</div>`,
+                    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+            ].join('')
+            alertPlaceholder.append(wrapper)
+        }
+        const alertTrigger = document.getElementById('liveAlertBtn')
+        if (alertTrigger) {
+            alertTrigger.addEventListener('click', () => {
+                alert('Nice, you triggered this alert message!', 'success')
+            })
+        }
+    </script>
+    <script src="http://yui.yahooapis.com/3.12.0/build/yui/yui-min.js"></script>
+</head>
+<body>
+    <!--div class="pure-g-r content-ribbon">
+        {% if messages %}
+        <aside class="pure-u-1">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </aside>
+        {% endif %}
+    </div-->
+
+    <div class="splash">
+        <div class="pure-g-r">
+            <div class="pure-u-1">
+                <div class="l-box splash-text">
+                    <h1 class="splash-head">
+                        <p><center>Simple MOOC - Plataforma de ensino a distância</center></p>
+                    </h1>
+                    <h2 class="splash-subhead">
+                        <center>O Simple MOOC visa simplificar o ensino a distância, provendo ferramentas objetivas e de fácil uso.</center>
+                    </h2>
+                    <!--p>
+                        <a href="#" class="pure-button primary-button">Saiba mais</a>
+                    </p-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header">
+        <div class="pure-menu pure-menu-open pure-menu-fixed pure-menu-horizontal">
+            <a class="pure-menu-heading" href="{% url 'core:home' %}"><b>SIMPLE MOOC</b></a>
+            <ul>
+                <li class="pure-menu-selected"><a href="{% url 'core:home' %}">Início</a></li>
+                <li><a href="http://127.0.0.1:8000/admin/">Admin</a></li>
+                <li><a href="{% url 'courses:index' %}">Cursos</a></li>
+                <li><a href="{% url 'core:contact' %}">Contato</a></li>
+                {% if user.is_authenticated %} 
+                <li><a href="{% url 'accounts:dashboard' %}">Painel</a></li>
+                <li><a href="{% url 'accounts:logout' %}">Sair</a></li>
+                <li><a href="#">Olá {{ user.username }}!</a></li>
+                {% else %} 
+                <li><a href="{% url 'accounts:login' %}">Entrar</a></li>
+                <li><a href="{% url 'accounts:register' %}" title="">Cadastrar</a></li>
+                {% endif %} 
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <div class="pure-g-r content-ribbon">
+            {% if messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <aside class="pure-u-1">
+                    {% for message in messages %}
+                    <p>{{ message }}</p>
+                    {% endfor %}
+                </aside>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+        </div>
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+    <div class="footer">
+        Simple MOOC - Uma simples plataforma de ensino a distância - by <a class="footer" target="_blank" href="http://www.egmon.com.br">www.egmon.com.br</a>
+    </div>
+</body>
+</html>
