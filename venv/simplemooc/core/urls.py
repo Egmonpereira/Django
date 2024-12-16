@@ -5,6 +5,6 @@ from core import views
 urlpatterns = [
     path('', views.home, name=''),
     path('index/', views.home, name='inicio'),
-    path('contat/', views.contact, name='contato'),
-    path('admin/', views.adminin, name='admin'),
+    path('contato/', views.contact, name='contato'),
+    path('admin/', views.admin, name='admin'),
 ]

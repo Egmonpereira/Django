@@ -1,0 +1,31 @@
+{% extends 'registration/dashboard.html' %}
+
+{% block breadcrumb %}
+    {{ block.super }}
+    <li>/</li>
+    <li><a href="{% url 'accounts:edit' %}">Editar Conta</a></li>
+{% endblock %}
+
+{% block dashboard_content %}
+<form class="pure-form pure-control-group" method="post">
+    {% csrf_token %}
+    {% if success %}
+    <p>Dados alterados com sucesso!</p>
+    {% else %}
+    <p>Problemas!</p>
+    {% endif %}
+    <fieldset>
+        {{ form.no_field_errors }}
+        {% for field in form %}
+        <div class="pure-control-group">
+            {{ field.label_tag }}
+            {{ field }}
+            {{ field.error }}
+        </div>
+        {% endfor %}
+        <div class="pure-control">
+            <button type="submit" class="pure-button pure-button-primary">Enviar</button>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

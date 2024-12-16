@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    
+    'django.contrib.staticfiles',    
     'core',
+    'accounts',
     'courses',
 ]
 
@@ -60,7 +60,7 @@ ROOT_URLCONF = 'simplemooc.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,14 +131,23 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'simplemooc', 'media')
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'Nome <egmonpereira@gmail.com>'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'egmonpereira@gmail.com'
-EMAIL_HOST_PASSWORD = 'kwy138205175'
-EMAIL_PORT = 587
+#DEFAULT_FROM_EMAIL = 'Nome <egmonpereira@gmail.com>'
+#EMAIL_USE_TLS = True
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_HOST_USER = 'egmonpereira@gmail.com'
+#EMAIL_HOST_PASSWORD = 'kwy138205175'
+#EMAIL_PORT = 587
 
 
 CONTACT_EMAIL = 'egmonpereira@gmail.com'
+
+# Auth
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'core:inicio'
+LOGOUT_URL = 'core:inicio'
+LOGOUT_REDIRECT_URL = 'core:inicio'
+AUTH_USER_MODEL = 'accounts.User'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 # Create your views here.
-def adminin(request):
+def admin(request):
     return render(request, 'admin/login/?next=/admin/')
 
 def home(request):

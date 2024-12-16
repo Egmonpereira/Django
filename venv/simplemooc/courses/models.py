@@ -4,6 +4,7 @@ from django.urls import reverse
 # Create your models here.
 
 class CourseManager(models.Manager):
+
     def search(self, query):
         return self.get_queryset().filter(
             models.Q(name_icontains=query) | \
@@ -12,6 +13,7 @@ class CourseManager(models.Manager):
 
 
 class Course(models.Model):
+
     name = models.CharField('Nome', max_length=100)
     slug = models.SlugField('Atalho')
     description = models.TextField('Descrição simples', blank=True)

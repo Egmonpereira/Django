@@ -1,5 +1,7 @@
 <!doctype html>
+
 {% load static %}
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -8,6 +10,14 @@
     <title>Simple MOOC</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <style>
+        .centralizar{
+            position:absolute; 
+            top:0%;
+            right:0%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
 </head>
 <body>
 <div class="content">
@@ -18,14 +28,31 @@
                 <li class="pure-menu-selected"><a href="{% url 'core:inicio' %}">Início</a></li>
                 <li><a href="{% url 'courses:index' %}">Cursos</a></li>
                 <li><a href="{% url 'core:contato' %}">Contato</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'core:' %}">Olá {{ user.get_username }}</a></li>
+                <!--li><a href="{% url 'accounts:logout' %}">Sair</a></li-->
+                <li><a href="{% url 'accounts:dashboard' %}">Painel</a></li>
+                {% else %}
+                <li><a href="{% url 'accounts:login' %}?next={{request.path}}">Login / Usuário</a></li>
                 <li><a href="{% url 'core:admin' %}">Admin</a></li>
+                {% endif %}
             </ul>
+            {% if user.is_authenticated %}
+            <div id="centralizar">
+                <form action="{% url 'accounts:logout' %}" method="post">
+                    {% csrf_token %} <!--csrf_token is very important to have as this is POST request-->
+                    <button class="pure-button pure-button-primary" type="submit">Sair</button>
+                    </form>
+            </div>
+            {% endif %}
         </div>
     </div>
 <div class="content">
+
     {% block content %}{% endblock %}
+
     <div class="footer">
-        Simple MOOC - Uma simples plataforma de ensino a distância
+        Simple MOOC - Uma simples plataforma de ensino a distância - <a class="pure-button" href="http://x.com/egmon">x.com/egmon</a>
     </div>
 </div>
 <script src="http://yui.yahooapis.com/3.12.0/build/yui/yui-min.js"></script>
