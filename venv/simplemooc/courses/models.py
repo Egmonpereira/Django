@@ -105,7 +105,8 @@ class Material(models.Model):
     )
 
     lesson = models.ForeignKey(
-        Lesson, verbose_name='Aula', related_name='materials', on_delete=models.CASCADE
+        Lesson, verbose_name='Aula', related_name='materials', 
+        on_delete=models.CASCADE
     )
 
     def is_embedded(self):
