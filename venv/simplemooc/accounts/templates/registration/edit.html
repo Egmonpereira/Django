@@ -9,9 +9,9 @@
 {% block dashboard_content %}
 <form class="pure-form pure-control-group" method="post">
     {% csrf_token %}
-    {% if success %}
+    <!--{% if success %}
     <p>Dados alterados com sucesso!</p>
-    {% else %}
+    {% else %}-->
     <p>Problemas!</p>
     {% endif %}
     <fieldset>

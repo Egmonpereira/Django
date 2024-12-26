@@ -1,9 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, SetPasswordForm
 from django.contrib.auth import authenticate, login, logout, get_user_model
+
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.contrib import messages
+
+from core.utils import generate_hash_key
+from courses.models import Enrollment
+
 from .forms import RegisterForm, EditAccountForm, PasswordResetForm, PasswordReset
+from .models import PasswordReset
 
 User = get_user_model()
 # Create your views here.
@@ -11,6 +18,8 @@ User = get_user_model()
 @login_required
 def dashboard(request):
     template_name = 'registration/dashboard.html'
+    context = {}
+    #context['enrolments'] = Enrollment.objects.filter(user=request.user)
     return render(request, template_name)
 
 def register(request):
@@ -63,8 +72,10 @@ def edit(request):
         form = EditAccountForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            form = EditAccountForm(instance=request.user)
-            context['success'] = True
+            #form = EditAccountForm(instance=request.user)
+            #context['success'] = True
+            messages.success(request, 'Dados alterados com sucesso!')
+            return redirect('accounts:dashboard')
     else:
         form = EditAccountForm(instance=request.user)
     context['form'] = form

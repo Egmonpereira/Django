@@ -1,0 +1,20 @@
+<li class="pure-menu-heading">
+    Meus Cursos
+</li>
+
+{% for enrollment in enrollments %}
+
+<li>
+    <a href="{% url 'courses:announcements' enrollment.course.slug %}">
+        <i class="icon-book"></i>
+        {{ enrollment.course }} 
+    </a>
+</li>
+
+{% empty %}
+
+<p>
+    Nenhum curso encontrado
+</p>
+
+{% endfor %}

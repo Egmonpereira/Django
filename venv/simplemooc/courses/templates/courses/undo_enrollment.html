@@ -1,0 +1,17 @@
+{% extends 'courses/course_dashboard.html' %}
+
+{% block dashboard_content %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    <h3>Você deseja realmente Cancelar?</h3>
+    <div class="pure-controls">
+        <button type="submit" class="pure-button button-error">
+            Confirmar
+        </button>
+        <a href="{% url 'courses:announcement' course.slug %}" class="pure-button pure-button-primary">
+            Cancelar
+        </a>
+    </div>
+</form>
+{% endblock %}

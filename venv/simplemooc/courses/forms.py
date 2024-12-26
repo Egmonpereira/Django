@@ -3,6 +3,8 @@ from django.core.mail import send_mail
 from django.conf import settings
 from core.mail import send_mail_templates
 
+from .models import Comment
+
 class ContactCourse(forms.Form):
     
     name = forms.CharField(label='Nome', max_length=100)
@@ -31,3 +33,9 @@ class ContactCourse(forms.Form):
             context,
             [settings.CONTACT_EMAIL]
         )
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ['comment']    
