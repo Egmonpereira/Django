@@ -162,7 +162,7 @@ def material(request, slug, pk):
         messages.error(request, 'Material não disponível!')
         return redirect('courses:lessons', slug=course.slug, pk=lesson.pk)
 
-    if material.is_embedded():
+    if not material.is_embedded():
         return redirect(material.file.url)
 
     template = 'courses/material.html'
